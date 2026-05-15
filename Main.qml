@@ -265,7 +265,7 @@ Item {
 
     function clipboardHistoryCommand(width) {
         if (root.useBuiltInDmsClipboard)
-            return ["dms", "cl", "history", "--json"];
+            return ["hype", "cl", "history", "--json"];
         return ["cliphist", "list", "-preview-width", String(width)];
     }
 
@@ -345,18 +345,18 @@ Item {
 
     function clipboardHeadCommand() {
         if (root.useBuiltInDmsClipboard)
-            return ["dms", "cl", "history", "--json"];
+            return ["hype", "cl", "history", "--json"];
         return ["cliphist", "list", "-preview-width", "1"];
     }
 
     function clipboardGetTextCommand(id) {
         if (root.useBuiltInDmsClipboard)
-            return ["sh", "-c", `dms cl get ${id} | base64 -d`];
+            return ["sh", "-c", `hype cl get ${id} | base64 -d`];
         return ["cliphist", "decode", String(id)];
     }
 
     function clipboardGetJsonCommand(id) {
-        return ["dms", "cl", "get", String(id), "--json"];
+        return ["hype", "cl", "get", String(id), "--json"];
     }
 
     function requestBuiltInClipboardEntry(id, onSuccess, onFailure) {
@@ -648,7 +648,7 @@ Item {
         if (text == null)
             return;
         copyRawTextProc.notify = !silent;
-        copyRawTextProc.command = root.useBuiltInDmsClipboard ? ["dms", "cl", "copy"] : ["wl-copy", "--"];
+        copyRawTextProc.command = root.useBuiltInDmsClipboard ? ["hype", "cl", "copy"] : ["wl-copy", "--"];
         copyRawTextProc.running = true;
         copyRawTextProc.write(String(text));
         copyRawTextProc.stdinEnabled = false;
@@ -660,7 +660,7 @@ Item {
         for (let i = 0; i < binaryStr.length; i++)
             bytes[i] = binaryStr.charCodeAt(i);
         copyRawImageProc.notify = !silent;
-        copyRawImageProc.command = root.useBuiltInDmsClipboard ? ["dms", "cl", "copy", "-t", mimeType] : ["wl-copy"];
+        copyRawImageProc.command = root.useBuiltInDmsClipboard ? ["hype", "cl", "copy", "-t", mimeType] : ["wl-copy"];
         copyRawImageProc.running = true;
         copyRawImageProc.write(bytes);
         copyRawImageProc.stdinEnabled = false;
@@ -762,7 +762,7 @@ Item {
     }
 
     function wipeCommand() {
-        return root.useBuiltInDmsClipboard ? ["dms", "cl", "clear"] : ["cliphist", "wipe"];
+        return root.useBuiltInDmsClipboard ? ["hype", "cl", "clear"] : ["cliphist", "wipe"];
     }
 
     // ══════════════════════════════════════════════════════════════════════════
@@ -996,7 +996,7 @@ Item {
                 newItem.content = "data:" + mimeType + ";base64," + base64;
                 root.pinnedItems = [...root.pinnedItems, newItem];
                 root.savePinnedFile();
-                Quickshell.execDetached(["dms", "cl", "delete", String(newItem.cliphistId)]);
+                Quickshell.execDetached(["hype", "cl", "delete", String(newItem.cliphistId)]);
                 root.pinnedRevision++;
                 ToastService.showInfo("Item pinned");
             }, function () {
@@ -1043,7 +1043,7 @@ Item {
             }
             root.pinnedItems = [...root.pinnedItems, item];
             root.savePinnedFile();
-            Quickshell.execDetached(root.useBuiltInDmsClipboard ? ["dms", "cl", "delete", String(item.cliphistId)] : ["cliphist", "delete", String(item.cliphistId)]);
+            Quickshell.execDetached(root.useBuiltInDmsClipboard ? ["hype", "cl", "delete", String(item.cliphistId)] : ["cliphist", "delete", String(item.cliphistId)]);
             root.pinnedRevision++;
             ToastService.showInfo("Item pinned");
         }
@@ -1408,7 +1408,7 @@ Item {
 
     function fetchTextThen(source, callback) {
         _fetchCallbacks.push(callback);
-        fetchTextProc.command = root.useBuiltInDmsClipboard ? ["dms", "cl", "paste"] : ["wl-paste", "-n"];
+        fetchTextProc.command = root.useBuiltInDmsClipboard ? ["hype", "cl", "paste"] : ["wl-paste", "-n"];
         fetchTextProc.running = true;
     }
 

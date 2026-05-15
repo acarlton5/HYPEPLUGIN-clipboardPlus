@@ -32,36 +32,36 @@ Because this is a widget plugin. You will need to at this plugin into the widget
 
 ```bash
 # Open/close/toggle panel
-dms ipc call clipboardPlus openPanel
-dms ipc call clipboardPlus closePanel
-dms ipc call clipboardPlus togglePanel
+hype ipc call clipboardPlus openPanel
+hype ipc call clipboardPlus closePanel
+hype ipc call clipboardPlus togglePanel
 
 # Emoji picker
-dms ipc call clipboardPlus openEmojiPanel
+hype ipc call clipboardPlus openEmojiPanel
 
 # Note cards
-dms ipc call clipboardPlus addNoteCard "Quick note"
-dms ipc call clipboardPlus listNoteCards
-dms ipc call clipboardPlus exportNoteCard "note_id"
+hype ipc call clipboardPlus addNoteCard "Quick note"
+hype ipc call clipboardPlus listNoteCards
+hype ipc call clipboardPlus exportNoteCard "note_id"
 
 # Add current clipboard data to ToDo
-dms ipc call clipboardPlus addClipboardToTodo
+hype ipc call clipboardPlus addClipboardToTodo
 
 # Add current clipboard data to note card
-dms ipc call clipboardPlus addClipboardToNoteCard
+hype ipc call clipboardPlus addClipboardToNoteCard
 ```
 
 Example in niri
 
 ```kdl
     Mod+V hotkey-overlay-title="Clipboard Manager" {
-        spawn-sh "dms ipc call clipboardPlus togglePanel"
+        spawn-sh "hype ipc call clipboardPlus togglePanel"
     }
     Mod+Period { 
-        spawn-sh "dms ipc call clipboardPlus openEmojiPanel"; 
+        spawn-sh "hype ipc call clipboardPlus openEmojiPanel"; 
     }
     Mod+Shift+V hotkey-overlay-title="Add to note card" {
-        spawn-sh "dms ipc call clipboardPlus addClipboardToNoteCard"
+        spawn-sh "hype ipc call clipboardPlus addClipboardToNoteCard"
     }
 ```
 
